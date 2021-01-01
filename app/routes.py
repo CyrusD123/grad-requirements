@@ -7,7 +7,7 @@ from sqlalchemy import Table
 
 @application.route('/')
 @application.route('/index')
-@login_required
+#@login_required
 def hello():
     return render_template('index.html')
 
