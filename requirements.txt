@@ -3,5 +3,7 @@ psycopg2-binary
 gunicorn
 flask_login
 flask_sqlalchemy
+flask_wtf
+wtforms
 sqlalchemy
 werkzeug
