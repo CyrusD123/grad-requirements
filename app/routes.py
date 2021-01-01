@@ -7,8 +7,8 @@ from sqlalchemy import Table
 
 @application.route('/')
 @application.route('/index')
-#@login_required
-def hello():
+@login_required
+def index():
     return render_template('index.html')
 
 @application.route('/login', methods=['GET', 'POST'])
