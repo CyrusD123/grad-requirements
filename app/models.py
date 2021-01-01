@@ -1,6 +1,6 @@
 from app import login, session
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, Text
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -12,8 +12,8 @@ class User(base, UserMixin):
     # Map the class to the PostgreSQL table 'users'
     __tablename__ = 'users'
     id = Column('flask-id', Integer, primary_key=True, nullable=False)
-    username = Column('username', Text, nullable=False)
-    password_hash = Column('password-hash', Text, nullable=False)
+    username = Column('username', String, nullable=False)
+    password_hash = Column('password-hash', String, nullable=False)
 
     # __repr__ function describes the object
     def __repr__(self):
