@@ -42,10 +42,13 @@ def register():
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
         user.set_password(form.password.data)
+        print("after set_password")
         session.add(user)
+        print("after add")
         session.commit()
+        print("after commit")
         # What does flash() do?
-        flash('You are now a registered user.')
+        #flash('You are now a registered user.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
