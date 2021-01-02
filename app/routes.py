@@ -42,7 +42,6 @@ def register():
         # For some reason, the user id is null
         user = User(username=form.username.data)
         user.set_password(form.password.data)
-        user.id = user.get_id()
         session.add(user)
         session.commit()
         # What does flash() do?
