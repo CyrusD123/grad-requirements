@@ -39,7 +39,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        # For some reason, the user id is null
+        # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
         user.set_password(form.password.data)
         session.add(user)
