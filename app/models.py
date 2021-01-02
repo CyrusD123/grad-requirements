@@ -1,4 +1,4 @@
-from app import login, session
+from app import login, g.session
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, Text
 from sqlalchemy.ext.declarative import declarative_base

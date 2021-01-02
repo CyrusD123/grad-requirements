@@ -1,4 +1,4 @@
-from app import application, engine, session, metadata
+from app import application, engine, g.session, metadata
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
 from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
@@ -42,8 +42,13 @@ def register():
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
         user.set_password(form.password.data)
+        print("after commit")
         session.add(user)
+        print("after add")
         session.commit()
+        print("after commit")
+        # What does flash() do?
+        #flash('You are now a registered user.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 

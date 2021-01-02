@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, g
 from config import Config
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
@@ -14,13 +14,22 @@ login = LoginManager(application)
 # Declare route to handle logins
 login.login_view = 'login'
 
-# Create Engine and Session for interacting with database
-# They behave similarly but with different methods (you have to commit a session)
+# Create Engine for interacting with database
 DB_URI = application.config['SQLALCHEMY_DATABASE_URI']
 engine = create_engine(DB_URI)
-session = Session(engine)
-# Metadata is needed to fetch information about tables
 metadata = MetaData(engine)
+
+@application.before_request
+def before_request():
+    # Session behaves similarly but with different methods (you have to commit a session)
+    session = Session(engine)
+    g.session = session
+    
+@application.after_request
+def after_request(response):
+    # Close session so that it returns to the engine's connection pool
+    g.session.close()
+    return response
 
 # Import all other necessary python files (This will be the master file with all of the code imported)
 # However, we run application.py for the final product, not __init__.py
