@@ -39,9 +39,10 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        # Flask takes care of the id string when declaring class (i think)
+        # For some reason, the user id is null
         user = User(username=form.username.data)
         user.set_password(form.password.data)
+        print(user.get_id())
         session.add(user)
         session.commit()
         # What does flash() do?
