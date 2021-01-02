@@ -22,7 +22,8 @@ metadata = MetaData(engine)
 @application.before_request
 def before_request():
     # Session behaves similarly but with different methods (you have to commit a session)
-    global session = Session(engine)
+    global session
+    session = Session(engine)
     
 @application.after_request
 def after_request(response):
