@@ -22,13 +22,12 @@ metadata = MetaData(engine)
 @application.before_request
 def before_request():
     # Session behaves similarly but with different methods (you have to commit a session)
-    session = Session(engine)
-    g.session = session
+    global session = Session(engine)
     
 @application.after_request
 def after_request(response):
     # Close session so that it returns to the engine's connection pool
-    g.session.close()
+    session.close()
     return response
 
 # Import all other necessary python files (This will be the master file with all of the code imported)

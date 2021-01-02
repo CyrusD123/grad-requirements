@@ -1,4 +1,4 @@
-from app import application, engine, g.session, metadata
+from app import application, engine, session, metadata
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
 from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
