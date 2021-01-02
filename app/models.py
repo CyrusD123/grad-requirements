@@ -11,7 +11,7 @@ base = declarative_base()
 class User(base, UserMixin):
     # Map the class to the PostgreSQL table 'users'
     __tablename__ = 'users'
-    id = Column('flask-id', Integer, primary_key=True, nullable=False)
+    id = Column('flask-id', Integer, primary_key=True)
     username = Column('username', Text, nullable=False)
     password_hash = Column('password-hash', Text, nullable=False)
 
