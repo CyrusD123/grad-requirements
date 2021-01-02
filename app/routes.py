@@ -39,10 +39,12 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        # Flask takes care of the id string when declaring class (i think)
         user = User(username=form.username.data)
         user.set_password(form.password.data)
         session.add(user)
         session.commit()
+        # What does flash() do?
         flash('You are now a registered user.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)

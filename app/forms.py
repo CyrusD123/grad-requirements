@@ -19,6 +19,8 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     # Determines if the username already exists
+    # The format validate_<fieldname> means that the function will be built into validate_on_submit
     def validate_username(self, username):
-        if session.query(User).filter_by(username=username).first() is not None:
+        # Error: can't adapt type 'StringField'
+        if session.query(User).filter_by(username=username.data).first() is not None:
             raise ValidationError('Username is already taken. Please try again.')
