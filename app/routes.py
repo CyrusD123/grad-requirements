@@ -1,7 +1,7 @@
 from app import application, engine, session, metadata
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
-from flask import Flask, jsonify, request, render_template, redirect, url_for
+from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy import Table
 
@@ -26,6 +26,8 @@ def login():
         # Exceptions for when username doesn't exist or password is incorrect
         # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
         if user is None or not user.check_password(form.password.data):
+            # Flash a message which is handled in the template
+            flash('Invalid username or password. Please try again.')
             return redirect(url_for('login'))
         # Log in the user using the built-in flask_login method
         login_user(user, remember=form.remember_me.data)
@@ -40,8 +42,13 @@ def register():
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
         user.set_password(form.password.data)
+        print("after commit")
         session.add(user)
+        print("after add")
         session.commit()
+        print("after commit")
+        # What does flash() do?
+        #flash('You are now a registered user.')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
