@@ -12,7 +12,7 @@ def get_session():
         print('Session started')
     return g.session
 
-@application.teardown_appcontext
+@application.teardown_request
 def teardown_session(exception):
     session = g.pop('session', None)
     if session is not None:
