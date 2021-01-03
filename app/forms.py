@@ -1,5 +1,4 @@
 from app.models import User
-from app.routes import get_session
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, EqualTo
@@ -21,6 +20,7 @@ class RegistrationForm(FlaskForm):
     # Determines if the username already exists
     # The format validate_<fieldname> means that the function will be built into validate_on_submit
     def validate_username(self, username):
+        from app.routes import get_session
         session = get_session()
         if session.query(User).filter_by(username=username.data).first() is not None:
             raise ValidationError('Username is already taken. Please try again.')
