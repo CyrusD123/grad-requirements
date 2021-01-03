@@ -1,4 +1,5 @@
-from app import login, session
+from app import login
+from app.routes import get_session
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, Text
 from sqlalchemy.ext.declarative import declarative_base
@@ -32,4 +33,5 @@ class User(base, UserMixin):
 # Flask stores the key in memory as a string, so it must be converted to int
 @login.user_loader
 def load_user(id):
+    session = get_session()
     return session.query(User).get(int(id))

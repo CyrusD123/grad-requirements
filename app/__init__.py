@@ -15,10 +15,11 @@ login = LoginManager(application)
 login.login_view = 'login'
 
 # Create Engine and Session for interacting with database
+# An engine is a pool of connections while sessions are individual connections
 # They behave similarly but with different methods (you have to commit a session)
 DB_URI = application.config['SQLALCHEMY_DATABASE_URI']
 engine = create_engine(DB_URI)
-session = Session(engine)
+#session = Session(engine)
 # Metadata is needed to fetch information about tables
 metadata = MetaData(engine)
 

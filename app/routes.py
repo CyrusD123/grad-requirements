@@ -1,9 +1,23 @@
-from app import application, engine, session, metadata
+from app import application, engine, metadata
 from app.models import User
 from app.forms import LoginForm, RegistrationForm
-from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
+from flask import Flask, g, jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from sqlalchemy import Table
+from sqlalchemy.orm import Session
+
+def get_session():
+    if 'session' not in g:
+        g.session = Session(engine)
+        print('Session started')
+    return g.session
+
+@application.teardown_appcontext
+def teardown_session(exception):
+    session = g.pop('session', None)
+    if session is not None:
+        session.close()
+        print('Session torn down')
 
 @application.route('/')
 @application.route('/index')
@@ -20,6 +34,7 @@ def login():
     form = LoginForm()
     # validate_on_submit is one of the FlaskForm's methods
     if form.validate_on_submit():
+        session = get_session()
         # Even though we arent explicityly instantiating a User class, .first() will return a single object (the first one in the table)
         # Which is defined by the __repr__ function of the User class, therefore creating a User object with User's methods
         user = session.query(User).filter_by(username=form.username.data).first()
@@ -39,6 +54,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
+        session = get_session()
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
         user.set_password(form.password.data)
