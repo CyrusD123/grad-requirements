@@ -63,7 +63,7 @@ def register():
         session.add(user)
         print("after add")
         session.commit()
-        print("after commit")
+        #print("after commit")
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
