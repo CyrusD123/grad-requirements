@@ -10,6 +10,7 @@ def get_session():
     if 'session' not in g:
         g.session = Session(engine)
         print('Session started')
+        print(g.session)
     return g.session
 
 @application.teardown_request
