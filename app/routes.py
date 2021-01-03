@@ -10,7 +10,6 @@ def get_session():
     if 'session' not in g:
         g.session = Session(engine)
         print('Session started')
-        print(g.session)
     return g.session
 
 @application.teardown_request
@@ -54,17 +53,18 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    if form.validate_on_submit():
-        session = get_session()
-        # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
-        user = User(username=form.username.data)
-        user.set_password(form.password.data)
-        print("after commit")
-        session.add(user)
-        print("after add")
-        session.commit()
-        print("after commit")
-        return redirect(url_for('login'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            session = get_session()
+            # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
+            user = User(username=form.username.data)
+            user.set_password(form.password.data)
+            print("after commit")
+            session.add(user)
+            print("after add")
+            session.commit()
+            print("after commit")
+            return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 @application.route('/logout')
