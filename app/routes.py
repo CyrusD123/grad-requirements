@@ -11,14 +11,14 @@ def get_session():
         g.session = Session(engine)
         print('Session started')
     return g.session
-
+"""
 @application.teardown_request
 def teardown_session(exception):
     session = g.pop('session', None)
     if session is not None:
         session.close()
         print('Session torn down')
-
+"""
 @application.route('/')
 @application.route('/index')
 @login_required
