@@ -1,18 +1,8 @@
-from app import application, engine, metadata
-from app.models import User
-from app.forms import LoginForm, RegistrationForm
 from flask import Flask, g, jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
-from flask_sqlalchemy_session import flask_scoped_session
-from sqlalchemy import Table
-from sqlalchemy.orm import sessionmaker
-
-session_factory = sessionmaker(bind=engine)
-session = flask_scoped_session(session_factory, application)
-
-@application.teardown_appcontext
-def teardown_session(exception):
-    session.remove()
+from app import application, db
+from app.models import User
+from app.forms import LoginForm, RegistrationForm
 
 @application.route('/')
 @application.route('/index')
@@ -31,11 +21,11 @@ def login():
     if form.validate_on_submit():
         # Even though we arent explicityly instantiating a User class, .first() will return a single object (the first one in the table)
         # Which is defined by the __repr__ function of the User class, therefore creating a User object with User's methods
-        user = session.query(User).filter_by(username=form.username.data).first()
+        user = User.query.filter_by(username=form.username.data).first()
         # Exceptions for when username doesn't exist or password is incorrect
         # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
         if user is None or not user.check_password(form.password.data):
-            # Flash a message which is handled in the template
+            # Flash is bad
             flash('Invalid username or password. Please try again.')
             return redirect(url_for('login'))
         # Log in the user using the built-in flask_login method
@@ -53,10 +43,11 @@ def register():
         print("after username")
         user.set_password(form.password.data)
         print("after password")
-        session.add(user)
+        db.session.add(user)
         print("after add")
-        session.commit()
+        db.session.commit()
         #print("after commit")
+        db.session.close()
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 

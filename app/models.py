@@ -1,19 +1,14 @@
-from app import login
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, Text
-from sqlalchemy.ext.declarative import declarative_base
 from werkzeug.security import generate_password_hash, check_password_hash
-
-# Declare base to create a table as mapped subclass of the base
-base = declarative_base()
+from app import login, db
 
 # The user inherits the functions of base and UserMixin
-class User(base, UserMixin):
+class User(UserMixin, db.Model):
     # Map the class to the PostgreSQL table 'users'
     __tablename__ = 'users'
-    id = Column('flask-id', Integer, primary_key=True)
-    username = Column('username', Text, nullable=False)
-    password_hash = Column('password-hash', Text, nullable=False)
+    id = db.Column('flask-id', db.Integer, primary_key=True)
+    username = db.Column('username', db.Text, nullable=False)
+    password_hash = db.Column('password-hash', db.Text, nullable=False)
 
     # __repr__ function describes the object
     def __repr__(self):
@@ -32,6 +27,4 @@ class User(base, UserMixin):
 # Flask stores the key in memory as a string, so it must be converted to int
 @login.user_loader
 def load_user(id):
-    # Trying to avoid circular dependencies
-    from app.routes import session
-    return session.query(User).get(int(id))
+    return User.query.get(int(id))
