@@ -9,20 +9,11 @@ from sqlalchemy.orm import sessionmaker
 
 session_factory = sessionmaker(bind=engine)
 session = flask_scoped_session(session_factory, application)
-"""
-def get_session():
-    if 'session' not in g:
-        g.session = Session(engine)
-        print('Session started')
-    return g.session
 
-@application.teardown_application
+@application.teardown_appcontext
 def teardown_session(exception):
-    session = g.pop('session', None)
-    if session is not None:
-        session.close()
-        print('Session torn down')
-"""
+    session.remove()
+
 @application.route('/')
 @application.route('/index')
 @login_required
