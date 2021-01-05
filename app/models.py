@@ -33,6 +33,5 @@ class User(base, UserMixin):
 @login.user_loader
 def load_user(id):
     # Trying to avoid circular dependencies
-    from app.routes import get_session
-    session = get_session()
+    from app.routes import session
     return session.query(User).get(int(id))
