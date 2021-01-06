@@ -25,11 +25,10 @@ def login():
         # Exceptions for when username doesn't exist or password is incorrect
         # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
         if user is None or not user.check_password(form.password.data):
-            # Flash is bad
-            flash('Invalid username or password. Please try again.')
             return redirect(url_for('login'))
         # Log in the user using the built-in flask_login method
         login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
     return render_template('login.html', title='Login', form=form)
 
 @application.route('/register', methods=['GET', 'POST'])
