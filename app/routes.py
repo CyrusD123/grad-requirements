@@ -18,17 +18,18 @@ def login():
     # Create a LoginForm to pass to the template
     form = LoginForm()
     # validate_on_submit is one of the FlaskForm's methods
-    if form.validate_on_submit():
-        # Even though we arent explicityly instantiating a User class, .first() will return a single object (the first one in the table)
-        # Which is defined by the __repr__ function of the User class, therefore creating a User object with User's methods
-        user = User.query.filter_by(username=form.username.data).first()
-        # Exceptions for when username doesn't exist or password is incorrect
-        # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
-        if user is None or not user.check_password(form.password.data):
-            return redirect(url_for('login'))
-        # Log in the user using the built-in flask_login method
-        login_user(user, remember=form.remember_me.data)
-        return redirect(url_for('index'))
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # Even though we arent explicityly instantiating a User class, .first() will return a single object (the first one in the table)
+            # Which is defined by the __repr__ function of the User class, therefore creating a User object with User's methods
+            user = User.query.filter_by(username=form.username.data).first()
+            # Exceptions for when username doesn't exist or password is incorrect
+            # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
+            if user is None or not user.check_password(form.password.data):
+                return redirect(url_for('login'))
+            # Log in the user using the built-in flask_login method
+            login_user(user, remember=form.remember_me.data)
+            return redirect(url_for('index'))
     return render_template('login.html', title='Login', form=form)
 
 @application.route('/register', methods=['GET', 'POST'])
