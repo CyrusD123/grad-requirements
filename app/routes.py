@@ -39,6 +39,7 @@ def register():
     form = RegistrationForm()
     if request.method == 'POST':
         if form.validate_on_submit():
+            print("form validated")
             # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
             user = User(username=form.username.data)
             print("after username")
