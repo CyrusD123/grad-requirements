@@ -16,7 +16,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     # Create a LoginForm to pass to the template
-    form = LoginForm()
+    form = LoginForm(request.form)
     # validate_on_submit is one of the FlaskForm's methods
     if request.method == "POST":
         if form.validate_on_submit():
