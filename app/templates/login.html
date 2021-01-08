@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Login</h1>
     <form action="" method="POST" novalidate>
-        {{ form.hidden_tag() }}
+        {{ form.csrf_token() }}
         <p>
             {{ form.username.label }}<br>
             {{ form.username(size=32) }}<br>
