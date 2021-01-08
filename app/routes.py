@@ -36,7 +36,7 @@ def login():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = RegistrationForm()
+    form = RegistrationForm(request.form)
     if request.method == 'POST' and form.validate():
         print("form validated")
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
