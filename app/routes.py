@@ -16,7 +16,7 @@ def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     # Create a LoginForm to pass to the template
-    form = LoginForm(request.form)
+    form = LoginForm()
     # validate_on_submit is one of the FlaskForm's methods
     if request.method == "POST":
         if form.validate_on_submit():
@@ -36,7 +36,7 @@ def login():
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-    form = RegistrationForm(request.form)
+    form = RegistrationForm()
     if request.method == 'POST' and form.validate():
         print("form validated")
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
