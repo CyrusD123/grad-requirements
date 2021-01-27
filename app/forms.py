@@ -10,6 +10,19 @@ class LoginForm(FlaskForm):
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
 
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        # Exceptions for when username doesn't exist
+        # Just a quick note, != and is not are not the same. Use 'is not' to check for None types
+        if user is None:
+            raise ValidationError('Username is incorrect. Please try again.')
+    
+    def validate_password(self, password):
+        user = User.query.filter_by(username=username.data).first()
+        # Checks if password is incorrect
+        if if user is not None and not user.check_password(password.data):
+            raise ValidationError('Password is incorrect. Please try again.')
+
 # Class for the registration form
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
