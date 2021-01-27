@@ -19,6 +19,11 @@
             <a href="{{ url_for('register') }}">Register</a>
             {% endif %}
         </div>
+        <div>
+            {% if not current_user.is_anonymous %}
+            <p>Logged in as: {{ current_user.username }}</p>
+            {% endif %}
+        </div>
         {% block content %}{% endblock %}
     </body>
 </html>
