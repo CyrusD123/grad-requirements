@@ -20,7 +20,7 @@ class LoginForm(FlaskForm):
     def validate_password(self, password):
         user = User.query.filter_by(username=username.data).first()
         # Checks if password is incorrect
-        if if user is not None and not user.check_password(password.data):
+        if user is not None and not user.check_password(password.data):
             raise ValidationError('Password is incorrect. Please try again.')
 
 # Class for the registration form
