@@ -36,8 +36,6 @@ def login():
 @application.route('/register', methods=['GET', 'POST'])
 @login_required
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
     form = RegistrationForm()
     if request.method == 'POST' and form.validate():
         print("form validated")
