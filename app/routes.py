@@ -32,7 +32,9 @@ def login():
             return redirect(url_for('index'))
     return render_template('login.html', title='Login', form=form)
 
+# Register requires you to already be authenticated, meaning that there always be one user to create new users
 @application.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
