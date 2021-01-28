@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, EqualTo
-from app.models import User
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
+from app.models import User, Student
 
 # Create a class for the login form, inheriting the FlaskForm properties
 class LoginForm(FlaskForm):
@@ -37,3 +37,19 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Username is already taken. Please try again.')
+
+# Class for the registration form
+class NewStudentForm(FlaskForm):
+    id = IntegerField('Student ID', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    class_year = IntegerField('Graduating Class', validators=[DataRequired()])
+    email = StringField('First Name', validators=[DataRequired(), Email()])
+    submit = SubmitField('Register')
+
+    # Determines if the username already exists
+    # The format validate_<fieldname> means that the function will be built into validate_on_submit
+    def validate_id(self, id):
+        student = Student.query.filter_by(username=id.data).first()
+        if student is not None:
+            raise ValidationError('Student ID is already taken. Please try again.')

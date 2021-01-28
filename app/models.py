@@ -28,3 +28,41 @@ class User(UserMixin, db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+class Student(db.Model):
+    __tablename__ = 'requirements'
+    id = db.Column('id', db.Integer, primary_key=True)
+    last_name = db.Column('lname', db.Text, nullable=False)
+    first_name = db.Column('fname', db.Text, nullable=False)
+    class_year = db.Column('class', db.Integer, nullable=False)
+    email = db.Column('email', db.Text, nullable=False)
+
+    alg_score = db.Column('alg-score', db.Integer, nullable=True)
+    alg_passing = db.Column('alg-passing', db.Boolean, nullable=False)
+    alg_alt_assessment = db.Column('alg-alt-assessment', db.Boolean, nullable=False)
+    alg_req_evidence = db.Column('alg-req-evidence', db.Integer, nullable=False)
+    alg_add_evidence = db.Column('alg-add-evidence', db.Integer, nullable=False)
+    alg_cte = db.Column('alg-cte', db.Boolean, nullable=False)
+    alg_overall = db.Column('alg-overall', db.Boolean, nullable=False)
+
+    lit_score = db.Column('lit-score', db.Integer, nullable=True)
+    lit_passing = db.Column('lit-passing', db.Boolean, nullable=False)
+    lit_alt_assessment = db.Column('lit-alt-assessment', db.Boolean, nullable=False)
+    lit_req_evidence = db.Column('lit-req-evidence', db.Integer, nullable=False)
+    lit_add_evidence = db.Column('lit-add-evidence', db.Integer, nullable=False)
+    lit_cte = db.Column('lit-cte', db.Boolean, nullable=False)
+    lit_overall = db.Column('lit-overall', db.Boolean, nullable=False)
+
+    bio_score = db.Column('bio-score', db.Integer, nullable=True)
+    bio_passing = db.Column('bio-passing', db.Boolean, nullable=False)
+    bio_alt_assessment = db.Column('bio-alt-assessment', db.Boolean, nullable=False)
+    bio_req_evidence = db.Column('bio-req-evidence', db.Integer, nullable=False)
+    bio_add_evidence = db.Column('bio-add-evidence', db.Integer, nullable=False)
+    bio_cte = db.Column('bio-cte', db.Boolean, nullable=False)
+    bio_overall = db.Column('bio-overall', db.Boolean, nullable=False)
+
+    composite_score = db.Column('composite-score', db.Integer, nullable=True)
+    graduate_overall = db.Column('graduate-overall', db.Boolean, nullable=False)
+
+    def __repr__(self):
+        return '<Student {}>'.format(self.id)

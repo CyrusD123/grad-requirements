@@ -16,7 +16,10 @@
             <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
             {% if not current_user.is_anonymous %}
-            <a href="{{ url_for('register') }}">Register</a>
+            <a href="{{ url_for('register') }}">Register a Teacher Account</a>
+            {% endif %}
+            {% if not current_user.is_anonymous %}
+            <a href="{{ url_for('new_student') }}">Register a New Student</a>
             {% endif %}
         </div>
         <div>

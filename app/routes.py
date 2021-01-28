@@ -1,8 +1,8 @@
 from flask import Flask, g, jsonify, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import application, db
-from app.models import User
-from app.forms import LoginForm, RegistrationForm
+from app.models import User, Student
+from app.forms import LoginForm, RegistrationForm, NewStudentForm
 
 @application.route('/')
 @application.route('/index')
@@ -33,7 +33,7 @@ def login():
 @login_required
 def register():
     form = RegistrationForm()
-    if request.method == 'POST' and form.validate():
+    if form.validate_on_submit():
         print("form validated")
         # Don't need to give the id because it is set to auto-increment (serial type) in PostgreSQL
         user = User(username=form.username.data)
@@ -52,3 +52,15 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+@application.route('/new_student', methods=['GET', 'POST'])
+@login_required
+def new_student():
+    form = NewStudentForm()
+    if form.validate_on_submit():
+        student = Student(id=form.id.data, last_name=form.last_name.data, first_name=form.first_name.data, class_year=form.class_year.data, email=form.email.data)
+        db.session.add(student)
+        db.session.commit()
+        db.session.close()
+        return redirect(url_for('index'))
+    return render_template('new_student.html', title='New Student', form=form)
