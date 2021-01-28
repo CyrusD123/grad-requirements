@@ -61,7 +61,7 @@ class Student(db.Model):
     bio_cte = db.Column('bio-cte', db.Boolean, nullable=False, default=False)
     bio_overall = db.Column('bio-overall', db.Boolean, nullable=False, default=False)
 
-    composite_score = db.Column('composite-score', db.Integer, nullable=True, default=0)
+    composite_score = db.Column('composite-score', db.Integer, nullable=True)
     graduate_overall = db.Column('graduate-overall', db.Boolean, nullable=False, default=False)
 
     def __repr__(self):

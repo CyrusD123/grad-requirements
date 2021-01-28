@@ -40,11 +40,12 @@ class RegistrationForm(FlaskForm):
 
 # Class for the registration form
 class NewStudentForm(FlaskForm):
+    # Integer fields won't automatically convert to int and wont let you submit if your field contains letters
     id = IntegerField('Student ID', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     class_year = IntegerField('Graduating Class', validators=[DataRequired()])
-    email = StringField('First Name', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Register')
 
     # Determines if the username already exists
