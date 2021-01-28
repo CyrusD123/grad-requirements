@@ -50,6 +50,6 @@ class NewStudentForm(FlaskForm):
     # Determines if the username already exists
     # The format validate_<fieldname> means that the function will be built into validate_on_submit
     def validate_id(self, id):
-        student = Student.query.filter_by(username=id.data).first()
+        student = Student.query.filter_by(id=id.data).first()
         if student is not None:
             raise ValidationError('Student ID is already taken. Please try again.')
