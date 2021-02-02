@@ -7,7 +7,7 @@
     <form action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {% for base in form.base_form() %}
+            {% for base in form.base_form %}
                 {{ base.category(size=32) }}
                 {{ base.dynamic_select(size=32) }}
                 {{ base.dynamic_int(size=32) }}
