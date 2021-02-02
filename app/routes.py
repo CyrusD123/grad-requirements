@@ -2,13 +2,16 @@ from flask import Flask, g, jsonify, request, render_template, redirect, url_for
 from flask_login import login_user, logout_user, current_user, login_required
 from app import application, db
 from app.models import User, Student
-from app.forms import LoginForm, RegistrationForm, NewStudentForm
+from app.forms import LoginForm, RegistrationForm, NewStudentForm, MainForm
 
-@application.route('/')
-@application.route('/index')
+@application.route('/', methods=['GET', 'POST'])
+@application.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template('index.html')
+    form = MainForm()
+    if form.validate_on_submit():
+        print(form.base_form.entries)
+    return render_template('index.html', form=form)
 
 @application.route('/login', methods=['GET', 'POST'])
 def login():

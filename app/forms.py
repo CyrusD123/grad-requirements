@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, FieldList, FormField
 from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
 from app.models import User, Student
 
@@ -54,3 +54,31 @@ class NewStudentForm(FlaskForm):
         student = Student.query.filter_by(id=id.data).first()
         if student is not None:
             raise ValidationError('Student ID is already taken. Please try again.')
+
+class BaseForm(FlaskForm):
+    category = SelectField(u'Choose a requirement category', choices=[
+        ('alg_score', 'Algebra Keystone Score'),
+        ('alg_passing', 'Algebra Passing Grade'),
+        ('alg_alt_assessment', 'Algebra Alternate Assessment'),
+        ('alg_req_evidence', 'Algebra Required Evidence'),
+        ('alg_add_evidence', 'Algebra Additional Evidence'),
+        ('alg_cte', 'Algebra CTE'),
+        ('lit_score', 'Literature Keystone Score'),
+        ('lit_passing', 'Literature Passing Grade'),
+        ('lit_alt_assessment', 'Literature Alternate Assessment'),
+        ('lit_req_evidence', 'Literature Required Evidence'),
+        ('lit_add_evidence', 'Literature Additional Evidence'),
+        ('lit_cte', 'Literature CTE'),
+        ('bio_score', 'Biology Keystone Score'),
+        ('bio_passing', 'Biology Passing Grade'),
+        ('bio_alt_assessment', 'Biology Alternate Assessment'),
+        ('bio_req_evidence', 'Biology Required Evidence'),
+        ('bio_add_evidence', 'Biology Additional Evidence'),
+        ('bio_cte', 'Biology CTE')
+        ], validators=[DataRequired()])
+    dynamic_select = SelectField("Choose an option", validate_choice=False, validators=[DataRequired()])
+    dynamic_int = IntegerField("Enter a value", validators=[DataRequired()])
+
+class MainForm(FlaskForm):
+    base_form = FieldList(FormField(BaseForm), min_entries=1)
+    submit = SubmitField('Submit')
