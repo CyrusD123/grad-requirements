@@ -8,9 +8,12 @@
         {{ form.hidden_tag() }}
         <p>
             {% for base in form.base_form %}
-                {{ base.category(size=32) }}
-                {{ base.dynamic_select(size=32) }}
-                {{ base.dynamic_int(size=32) }}
+                {{ base.category.label }}
+                {{ base.category }}
+                {{ base.dynamic_select.label }}
+                {{ base.dynamic_select }}
+                {{ base.dynamic_int.label }}
+                {{ base.dynamic_int }}
             {% endfor %}
             {% for error in form.base_form.errors %}
                 <span style="color: red;">[{{ error }}]</span>
