@@ -6,7 +6,14 @@
 
     <form action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
-        {{ form.base_form() }}
+        {% for base in form.base_form() %}
+            {{ base.form.category }}
+            {{ base.form.dynamic_select }}
+            {{ base.form.dynamic_int }}
+        {% endfor %}
+        {% for error in form.base_form.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
         {{ form.submit() }}
     </form>
 {% endblock %}
