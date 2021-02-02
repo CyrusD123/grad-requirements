@@ -7,9 +7,9 @@
     <form action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
         {% for base in form.base_form() %}
-            {{ base.category }}
-            {{ base.dynamic_select }}
-            {{ base.dynamic_int }}
+            {{ base.category() }}
+            {{ base.dynamic_select() }}
+            {{ base.dynamic_int() }}
         {% endfor %}
         {% for error in form.base_form.errors %}
             <span style="color: red;">[{{ error }}]</span>
