@@ -32,4 +32,13 @@
         {% endfor %}
         <p>{{ form.submit() }}</p>
     </form>
+    <script>
+        $(document).ready(function() {
+            var dynamicCount = 1;
+            var newField = $("#base_form-0-category").clone(True);
+            newField.attr("id", "base_form-"+dynamicCount+"-categories");
+            newField.attr("name", "base_form-"+dynamicCount+"-categories");
+            $("form").append(newField);
+        });
+    </script>
 {% endblock %}
