@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, SelectField, FieldList, FormField
-from wtforms.validators import ValidationError, DataRequired, EqualTo, Email
+from wtforms.validators import ValidationError, DataRequired, EqualTo, Email, Optional
 from app.models import User, Student
 
 # Create a class for the login form, inheriting the FlaskForm properties
@@ -76,8 +76,8 @@ class BaseForm(FlaskForm):
         ('bio_add_evidence', 'Biology Additional Evidence'),
         ('bio_cte', 'Biology CTE')
         ], validators=[DataRequired()])
-    dynamic_select = SelectField("Choose an option", validate_choice=False, validators=[])
-    dynamic_int = IntegerField("Enter a value", validators=[])
+    dynamic_select = SelectField("Choose an option", validate_choice=False, validators=[Optional()])
+    dynamic_int = IntegerField("Enter a value", validators=[Optional()])
 
 class MainForm(FlaskForm):
     base_form = FieldList(FormField(BaseForm), min_entries=1)

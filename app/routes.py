@@ -10,6 +10,7 @@ from app.forms import LoginForm, RegistrationForm, NewStudentForm, MainForm
 def index():
     form = MainForm()
     if form.validate_on_submit():
+        print('foo')
         print(form.base_form.entries)
     return render_template('index.html', form=form)
 
