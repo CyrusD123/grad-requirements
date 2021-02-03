@@ -35,9 +35,13 @@
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
+            var newToken = $("#base_form-0-csrf_token").clone(true);
+            newToken.attr("id", "base_form-"+dynamicCount+"-csrf_token");
+            newToken.attr("name", "base_form-"+dynamicCount+"-csrf_token");
             var newField = $("#base_form-0-category").clone(true);
             newField.attr("id", "base_form-"+dynamicCount+"-category");
             newField.attr("name", "base_form-"+dynamicCount+"-category");
+            $("form").append(newToken);
             $("form").append(newField);
         });
     </script>
