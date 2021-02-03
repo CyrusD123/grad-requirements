@@ -6,19 +6,28 @@
 
     <form action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            {% for base in form.base_form %}
-                {{ base.category.label }}
-                {{ base.category }}
-                {{ base.dynamic_select.label }}
-                {{ base.dynamic_select }}
-                {{ base.dynamic_int.label }}
-                {{ base.dynamic_int }}
-            {% endfor %}
-            {% for error in form.base_form.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </p>
+        {% for base in form.base_form %}
+            <p>
+                {{ base.category.label }}<br>
+                {{ base.category }}<br>
+                {% for error in base.category.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ base.dynamic_select.label }}<br>
+                {{ base.dynamic_select }}<br>
+                {% for error in base.dynamic_select.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                {{ base.dynamic_int.label }}<br>
+                {{ base.dynamic_int }}<br>
+                {% for error in base.dynamic_int.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
         <p>{{ form.submit() }}</p>
     </form>
 {% endblock %}

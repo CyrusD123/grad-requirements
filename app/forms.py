@@ -76,8 +76,8 @@ class BaseForm(FlaskForm):
         ('bio_add_evidence', 'Biology Additional Evidence'),
         ('bio_cte', 'Biology CTE')
         ], validators=[DataRequired()])
-    dynamic_select = SelectField("Choose an option", validate_choice=False, validators=[DataRequired()])
-    dynamic_int = IntegerField("Enter a value", validators=[DataRequired()])
+    dynamic_select = SelectField("Choose an option", validate_choice=False, validators=[])
+    dynamic_int = IntegerField("Enter a value", validators=[])
 
 class MainForm(FlaskForm):
     base_form = FieldList(FormField(BaseForm), min_entries=1)
