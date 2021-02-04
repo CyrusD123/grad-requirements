@@ -38,15 +38,21 @@
         $(document).ready(function() {
             var dynamicCount = 1;
             var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
+            console.log("cloned");
             var elements = newBase.find("*");
+            console.log("found");
             $.each(elements, function(index, elem){
+                console.log("inner function");
                 var jElem = $(elem);
                 var name = jElem.prop("name");
                 name = name.replace(/\d+/g, String(dynamicCount));
                 jElem.prop("id", name);
                 jElem.prop("name", name);
+                console.log("renamed");
             });
+            console.log(newBase);
             newBase.insertBefore($("#submit"));
+            console.log("inserted");
             /*
             var newToken = $("#base_form-0-csrf_token").clone(true);
             newToken.attr("id", "base_form-"+dynamicCount+"-csrf_token");
