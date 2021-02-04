@@ -7,34 +7,47 @@
     <form action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
         {% for base in form.base_form %}
-            {{ base.hidden_tag() }}
-            <p>
-                {{ base.category.label }}<br>
-                {{ base.category }}<br>
-                {% for error in base.category.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>
-                {{ base.dynamic_select.label }}<br>
-                {{ base.dynamic_select }}<br>
-                {% for error in base.dynamic_select.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
-            <p>
-                {{ base.dynamic_int.label }}<br>
-                {{ base.dynamic_int }}<br>
-                {% for error in base.dynamic_int.errors %}
-                    <span style="color: red;">[{{ error }}]</span>
-                {% endfor %}
-            </p>
+            <div id="base0">
+                {{ base.hidden_tag() }}
+                <p>
+                    {{ base.category.label }}<br>
+                    {{ base.category }}<br>
+                    {% for error in base.category.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ base.dynamic_select.label }}<br>
+                    {{ base.dynamic_select }}<br>
+                    {% for error in base.dynamic_select.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ base.dynamic_int.label }}<br>
+                    {{ base.dynamic_int }}<br>
+                    {% for error in base.dynamic_int.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                    {% endfor %}
+                </p>
+            </div>
         {% endfor %}
         <p>{{ form.submit() }}</p>
     </form>
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
+            var newBase = $("#base").clone(True).prop("id", "base"+dynamicCount);
+            var elements = newBase.find("*");
+            $.each(elements, function(index, elem){
+                var jElem = $(elem);
+                var name = jElem.prop("name");
+                name = name.replace(/\d+/g, String(dynamicCount));
+                jElem.prop("id", name);
+                jElem.prop("name", name);
+            });
+            newBase.insertBefore($("#submit"));
+            /*
             var newToken = $("#base_form-0-csrf_token").clone(true);
             newToken.attr("id", "base_form-"+dynamicCount+"-csrf_token");
             newToken.attr("name", "base_form-"+dynamicCount+"-csrf_token");
@@ -52,6 +65,7 @@
             $("form").append(newDynamicSelect);
             $("form").append(newDynamicInt);
             // Add dynamic_select and dynamic_int but hide them
+            */
         });
     </script>
 {% endblock %}
