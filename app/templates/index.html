@@ -43,7 +43,7 @@
             console.log("cloned");
             var elements = newBase.find("*");
             console.log("found", String(elements));
-            $.each(elements, function(index, elem){
+            $elements.each(function(index, elem){
                 console.log("inner function");
                 var jElem = $(elem);
                 var name = jElem.prop("name");
