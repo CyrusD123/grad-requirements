@@ -39,7 +39,7 @@
             var dynamicCount = 1;
             var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
             console.log("cloned");
-            var elements = newBase.find("*");
+            var elements = newBase.find("input");
             console.log("found", String(elements));
             $.each(elements, function(index, elem){
                 console.log("inner function");
@@ -50,8 +50,7 @@
                 jElem.prop("name", name);
                 console.log("renamed");
             });
-            console.log(newBase.innerHTML);
-            newBase.insertBefore($("#submit"));
+            newBase.insertBefore("#submit");
             console.log("inserted");
             /*
             var newToken = $("#base_form-0-csrf_token").clone(true);
