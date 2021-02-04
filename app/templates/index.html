@@ -37,7 +37,7 @@
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
-            var newBase = $("#base").clone(True).prop("id", "base"+dynamicCount);
+            var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
             var elements = newBase.find("*");
             $.each(elements, function(index, elem){
                 var jElem = $(elem);
