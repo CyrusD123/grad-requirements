@@ -38,11 +38,20 @@
             var newToken = $("#base_form-0-csrf_token").clone(true);
             newToken.attr("id", "base_form-"+dynamicCount+"-csrf_token");
             newToken.attr("name", "base_form-"+dynamicCount+"-csrf_token");
-            var newField = $("#base_form-0-category").clone(true);
-            newField.attr("id", "base_form-"+dynamicCount+"-category");
-            newField.attr("name", "base_form-"+dynamicCount+"-category");
+            var newCategoryField = $("#base_form-0-category").clone(true);
+            newCategoryField.attr("id", "base_form-"+dynamicCount+"-category");
+            newCategoryField.attr("name", "base_form-"+dynamicCount+"-category");
+            var newDynamicSelect = $("#base_form-0-dynamic_select").clone(true);
+            newDynamicSelect.attr("id", "base_form-"+dynamicCount+"-dynamic_select");
+            newDynamicSelect.attr("name", "base_form-"+dynamicCount+"-dynamic_select");
+            var newDynamicInt = $("#base_form-0-dynamic_int").clone(true);
+            newDynamicInt.attr("id", "base_form-"+dynamicCount+"-dynamic_int");
+            newDynamicInt.attr("name", "base_form-"+dynamicCount+"-dynamic_int");
             $("form").append(newToken);
-            $("form").append(newField);
+            $("form").append(newCategoryField);
+            $("form").append(newDynamicSelect);
+            $("form").append(newDynamicInt);
+            // Add dynamic_select and dynamic_int but hide them
         });
     </script>
 {% endblock %}
