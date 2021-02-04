@@ -40,7 +40,7 @@
             var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
             console.log("cloned");
             var elements = newBase.find("*");
-            console.log("found");
+            console.log("found", elements);
             $.each(elements, function(index, elem){
                 console.log("inner function");
                 var jElem = $(elem);
