@@ -37,13 +37,13 @@
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
-            var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
+            var newBase = $("#base0").clone(true).prop("id", "base"+dynamicCount);
             newBase.insertBefore("form #submit");
             console.log("inserted");
             console.log("cloned");
             var elements = newBase.find("*");
             console.log("found", String(elements));
-            $elements.each(function(index, elem){
+            $.each(elements, function(index, elem){
                 console.log("inner function");
                 var jElem = $(elem);
                 var name = jElem.prop("name");
