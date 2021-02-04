@@ -53,6 +53,9 @@
                     name = jElem.prop("for");
                     console.log("is label");
                 }
+                if (name == undefined) {
+                    continue;
+                }
                 console.log(name);
                 name = name.replace(/\d+/g, String(dynamicCount));
                 if (isLabel == false) {
