@@ -32,13 +32,13 @@
                 </p>
             </div>
         {% endfor %}
-        <p id="submit-block">{{ form.submit() }}</p>
+        <p>{{ form.submit() }}</p>
     </form>
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
             var newBase = $("#base0").clone(true).prop("id", "base"+dynamicCount);
-            newBase.insertBefore("form #submit-block");
+            newBase.insertAfter("form #base"+(dynamicCount-1));
             console.log("inserted");
             console.log("cloned");
             var elements = newBase.find("*");
@@ -51,7 +51,9 @@
                 if (name == undefined) {
                     isLabel = true;
                     name = jElem.prop("for");
+                    console.log("is label");
                 }
+                console.log(name);
                 name = name.replace(/\d+/g, String(dynamicCount));
                 if (isLabel == false) {
                     jElem.prop("id", name);
@@ -62,6 +64,7 @@
                 }
                 console.log("renamed");
             });
+            dynamicCount++;
             /*
             var newToken = $("#base_form-0-csrf_token").clone(true);
             newToken.attr("id", "base_form-"+dynamicCount+"-csrf_token");
