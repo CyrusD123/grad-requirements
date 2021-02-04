@@ -37,9 +37,10 @@
     <script>
         $(document).ready(function() {
             var dynamicCount = 1;
-            var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
+            var newBase = $("#base").clone(true);
+            newBase = newBase.prop("id", "base"+dynamicCount);
             console.log("cloned");
-            var elements = newBase.find("input");
+            var elements = newBase.find("*");
             console.log("found", String(elements));
             $.each(elements, function(index, elem){
                 console.log("inner function");
@@ -50,7 +51,7 @@
                 jElem.prop("name", name);
                 console.log("renamed");
             });
-            newBase.insertBefore("#submit");
+            newBase.insertBefore("form #submit");
             console.log("inserted");
             /*
             var newToken = $("#base_form-0-csrf_token").clone(true);
