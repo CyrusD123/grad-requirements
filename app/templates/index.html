@@ -40,7 +40,7 @@
             var newBase = $("#base").clone(true).prop("id", "base"+dynamicCount);
             console.log("cloned");
             var elements = newBase.find("*");
-            console.log("found", elements);
+            console.log("found", String(elements));
             $.each(elements, function(index, elem){
                 console.log("inner function");
                 var jElem = $(elem);
@@ -50,7 +50,7 @@
                 jElem.prop("name", name);
                 console.log("renamed");
             });
-            console.log(newBase.html());
+            console.log(newBase.innerHTML);
             newBase.insertBefore($("#submit"));
             console.log("inserted");
             /*
