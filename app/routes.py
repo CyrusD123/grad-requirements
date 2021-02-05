@@ -12,6 +12,7 @@ def index():
     if form.validate_on_submit():
         print('foo')
         print(form.base_form.entries)
+        return redirect(url_for('success'))
     return render_template('index.html', form=form)
 
 @application.route('/login', methods=['GET', 'POST'])
@@ -68,3 +69,7 @@ def new_student():
         db.session.close()
         return redirect(url_for('index'))
     return render_template('new_student.html', title='New Student', form=form)
+
+@application.route('/success')
+def success():
+    return render_template('success.html', title='Success')
